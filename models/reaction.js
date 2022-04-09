@@ -1,9 +1,9 @@
 const { Schema, Types } = require('mongoose');
 
-// reaction schema tied to thought
+// reaction schema
 const reactionSchema = new Schema(
     {
-        // set custom id to avoid confusion with parent id
+        // set reaction id
         reactionId: {
             type: Schema.Types.ObjectId,
             default: () => new Types.ObjectId()
