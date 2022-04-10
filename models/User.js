@@ -1,4 +1,4 @@
-const { Schema, Types } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 // creating user schema
 const UserSchema = new Schema(
@@ -42,6 +42,7 @@ const User = model('User', UserSchema);
 
 // virtue to get total count of friends
 UserSchema.virtual('friendCount').get(function () {
+    console.log(this)
     return this.friends.length;
 });
 

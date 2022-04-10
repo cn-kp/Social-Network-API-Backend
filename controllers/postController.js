@@ -8,7 +8,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   // find post by id
-  getOneUser(req, res) {
+  getOnePost(req, res) {
     Post.findOne({ _id: req.params.id })
       .select("-__v")
       .then((post) => {
@@ -19,7 +19,7 @@ module.exports = {
         }
       });
   },
-  // create post, need to tie it to user
+  // create post, need to tie it to user, need to pass user id into params
   createPost(req, res) {
     Post.create(req.body)
       .then(({ _id }) => {
@@ -34,7 +34,7 @@ module.exports = {
   },
   // delete post, not sure if i have to pull it from the user post as well
   deletePost(req, res) {
-    User.findOneAndDelete({ _id: req.params.id }).then((post) => {
+    Post.findOneAndDelete({ _id: req.params.id }).then((post) => {
       if (!post) {
         res.status(404).json({ message: "no post found with this id" });
       } else {

@@ -10,6 +10,7 @@ const PostSchema = new Schema(
     },
     createdAt: {
       type: Date,
+      required: true,
       default: Date.now(),
     },
     username: {
@@ -36,4 +37,4 @@ PostSchema.virtual("reactionCount").get(function () {
 const Post = model("Post", PostSchema);
 
 // export the Post model
-module.exports = { Post };
+module.exports = Post ;

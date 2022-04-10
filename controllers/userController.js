@@ -3,9 +3,9 @@ const { User, Post } = require("../models");
 module.exports = {
     // find all users
   getAllUsers(req, res) {
-    User.find()
+    User.find({})
       .then((users) => res.json(users))
-      .catch((err) => res.status(500).json(err));
+      .catch((err) => res.status(500).json(err.message));
   },
   // find user by id
   getOneUser(req, res) {
