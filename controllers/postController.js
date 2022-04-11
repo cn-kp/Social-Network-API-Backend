@@ -22,14 +22,20 @@ module.exports = {
   // create post, need to tie it to user, need to pass user id into params
   createPost(req, res) {
     Post.create(req.body)
-      .then(({ _id }) => {
+      .then(( postData ) => {
         User.findOneAndUpdate(
-          { _id: req.params.id },
-          { $push: { posts: _id } },
+          { _id: req.body.userId },
+          { $push: { posts: postData._id } },
           { new: true }
         );
       })
-      .then((post) => res.json(post))
+      .then((post) =>{
+        console.log(post);
+        if(!post){
+          return res.status(404).json({message: "post created successfully but no user exists with that id"})
+        }
+        return res.json({message: "post created successfully"})
+      })
       .catch((err) => res.status(400).json(err));
   },
   // delete post, not sure if i have to pull it from the user post as well
