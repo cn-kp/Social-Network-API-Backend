@@ -23,14 +23,13 @@ module.exports = {
   createPost(req, res) {
     Post.create(req.body)
       .then(( postData ) => {
-        User.findOneAndUpdate(
+        return User.findOneAndUpdate(
           { _id: req.body.userId },
-          { $push: { posts: postData._id } },
+          { $addToSet: { posts: postData._id } },
           { new: true }
         );
       })
       .then((post) =>{
-        console.log(post);
         if(!post){
           return res.status(404).json({message: "post created successfully but no user exists with that id"})
         }
